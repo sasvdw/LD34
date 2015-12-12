@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 207ae485049b5a1428648f48cada243b
-timeCreated: 1449923734
+timeCreated: 1449928984
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -84,7 +84,7 @@ TextureImporter:
     21300154: Floor_77
     21300156: Floor_78
     21300158: Floor_79
-    21300160: Floor_80
+    21300160: stone-nw
     21300162: Floor_81
     21300164: Floor_82
     21300166: Floor_83
@@ -329,30 +329,30 @@ TextureImporter:
     21300644: Floor_322
     21300646: Floor_323
     21300648: Floor_324
-    21300650: Floor_325
-    21300652: Floor_326
-    21300654: Floor_327
-    21300656: Floor_328
-    21300658: Floor_329
+    21300650: dungeon-dungeondirt-nw
+    21300652: dungeon-dungeondirt-n
+    21300654: dungeon-dungeondirt-ne
+    21300656: dungeon-dungeondirt-top
+    21300658: dungeon-dungeondirt-alone
     21300660: Floor_330
     21300662: Floor_331
     21300664: Floor_332
     21300666: Floor_333
     21300668: Floor_334
     21300670: Floor_335
-    21300672: Floor_336
+    21300672: dungeondirt
     21300674: Floor_337
     21300676: Floor_338
     21300678: Floor_339
     21300680: Floor_340
     21300682: Floor_341
-    21300684: Floor_342
-    21300686: Floor_343
-    21300688: Floor_344
-    21300690: Floor_345
-    21300692: Floor_346
-    21300694: Floor_347
-    21300696: Floor_348
+    21300684: dungeon-dungeondirt-w
+    21300686: dungeon
+    21300688: dungeon-dungeondirt-e
+    21300690: dungeon-dungeondirt-vertical
+    21300692: dungeon-dungeondirt-left
+    21300694: dungeon-dungeondirt-horizontal
+    21300696: dungeon-dungeondirt-right
     21300698: Floor_349
     21300700: Floor_350
     21300702: Floor_351
@@ -364,10 +364,10 @@ TextureImporter:
     21300714: Floor_357
     21300716: Floor_358
     21300718: Floor_359
-    21300720: Floor_360
-    21300722: Floor_361
-    21300724: Floor_362
-    21300726: Floor_363
+    21300720: dungeon-dungeondirt-sw
+    21300722: dungeon-dungeondirt-s
+    21300724: dungeon-dungeondirt-se
+    21300726: dungeon-dungeondirt-bottom
     21300728: Floor_364
     21300730: Floor_365
     21300732: Floor_366
@@ -487,7 +487,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -509,7 +509,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -1330,7 +1330,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_80
+    - name: stone-nw
       rect:
         serializedVersion: 2
         x: 0
@@ -3780,7 +3780,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_325
+    - name: dungeon-dungeondirt-nw
       rect:
         serializedVersion: 2
         x: 112
@@ -3790,7 +3790,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_326
+    - name: dungeon-dungeondirt-n
       rect:
         serializedVersion: 2
         x: 128
@@ -3800,7 +3800,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_327
+    - name: dungeon-dungeondirt-ne
       rect:
         serializedVersion: 2
         x: 144
@@ -3810,7 +3810,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_328
+    - name: dungeon-dungeondirt-top
       rect:
         serializedVersion: 2
         x: 160
@@ -3820,7 +3820,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_329
+    - name: dungeon-dungeondirt-alone
       rect:
         serializedVersion: 2
         x: 192
@@ -3890,7 +3890,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_336
+    - name: dungeondirt
       rect:
         serializedVersion: 2
         x: 16
@@ -3950,7 +3950,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_342
+    - name: dungeon-dungeondirt-w
       rect:
         serializedVersion: 2
         x: 112
@@ -3960,7 +3960,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_343
+    - name: dungeon
       rect:
         serializedVersion: 2
         x: 128
@@ -3970,7 +3970,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_344
+    - name: dungeon-dungeondirt-e
       rect:
         serializedVersion: 2
         x: 144
@@ -3980,7 +3980,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_345
+    - name: dungeon-dungeondirt-vertical
       rect:
         serializedVersion: 2
         x: 160
@@ -3990,7 +3990,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_346
+    - name: dungeon-dungeondirt-left
       rect:
         serializedVersion: 2
         x: 176
@@ -4000,7 +4000,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_347
+    - name: dungeon-dungeondirt-horizontal
       rect:
         serializedVersion: 2
         x: 192
@@ -4010,7 +4010,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_348
+    - name: dungeon-dungeondirt-right
       rect:
         serializedVersion: 2
         x: 208
@@ -4130,7 +4130,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_360
+    - name: dungeon-dungeondirt-sw
       rect:
         serializedVersion: 2
         x: 112
@@ -4140,7 +4140,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_361
+    - name: dungeon-dungeondirt-s
       rect:
         serializedVersion: 2
         x: 128
@@ -4150,7 +4150,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_362
+    - name: dungeon-dungeondirt-se
       rect:
         serializedVersion: 2
         x: 144
@@ -4160,7 +4160,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Floor_363
+    - name: dungeon-dungeondirt-bottom
       rect:
         serializedVersion: 2
         x: 160
