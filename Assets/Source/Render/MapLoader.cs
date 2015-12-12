@@ -3,40 +3,96 @@ using System.Collections.Generic;
 
 public class MapLoader : MonoBehaviour {
 
+    public MapConstants.TileSet tileType = MapConstants.TileSet.DUNGEON;
     public string mapFile;
-
     public GameObject floor;
 
     private Transform boardHolder; // Contains all the GameObjects used for rendering
-    private string[] mapTileNames;
+    private char[] mapData; // Raw character format map data
+    private string[] mapTiles;
+    private GameObject[] tiles;
     private int[] surroundingPositionValues = { 1, 2, 4, 8, 0, 16, 32, 64, 128 };
     private static Dictionary<int, string> positionIdsToNames;
     private Dictionary<char, string> tileSet;
     private string primary;
     private string secondary;
 
-	void Start () {
-        tileSet = MapConstants.GetTileSet(MapConstants.TileSet.SURFACE);
-        primary = tileSet['.'];
-        secondary = tileSet[','];
+    public void loadMap() {
+        mapData = loadMapData();
+        reRenderMap();
+    }
 
-        mapTileNames = loadMap();
+    public void toggleTileType() {
+        if (tileType == MapConstants.TileSet.DUNGEON) {
+            tileType = MapConstants.TileSet.SURFACE;
+            reRenderMap();
+        } else if (tileType == MapConstants.TileSet.SURFACE) {
+            tileType = MapConstants.TileSet.DUNGEON;
+            reRenderMap();
+        }
+    }
 
-        prettifyTerrainEdges();
+    void Start () {
+        // Pre-create GameObjects for floors and reuse them instead of creating & destroying
+        createSpriteRenderers();
 
-        renderMap();
+        loadMap();
     }
 	
 	void Update () {
 	}
 
-    private string[] loadMap() {
+    private void createSpriteRenderers() {
+        boardHolder = new GameObject().transform;
+
+        tiles = new GameObject[MapConstants.WIDTH * MapConstants.HEIGHT];
+
+        for (int y = 0; y < MapConstants.HEIGHT; y++) {
+            for (int x = 0; x < MapConstants.WIDTH; x++) {
+                GameObject instance = Instantiate(floor, new Vector3(x, MapConstants.HEIGHT - y - 1, 0f), Quaternion.identity) as GameObject;
+                instance.transform.SetParent(boardHolder);
+
+                tiles[calcMapIndex(x, y)] = instance;
+            }
+        }
+    }
+    
+    private void reRenderMap() {
+        mapTiles = convertMapDataToSpriteNames(mapData);
+        prettifyTerrainEdges();
+
+        for (int y = 0; y < MapConstants.HEIGHT; y++) {
+            for (int x = 0; x < MapConstants.WIDTH; x++) {
+                GameObject instance = tiles[calcMapIndex(x, y)];
+                SpriteRenderer renderer = instance.GetComponent<SpriteRenderer>();
+                renderer.sprite = SpriteRepository.GetSpriteByName(mapTiles[calcMapIndex(x, y)]);
+            }
+        }
+    }
+
+    private char[] loadMapData() {
+        updateTileSet();
+
         Debug.Log(System.Environment.Version);
         string[] result = new string[MapConstants.WIDTH * MapConstants.HEIGHT];
 
         TextAsset textFile = Resources.Load<TextAsset>(mapFile);
         char[] data = System.Text.Encoding.ASCII.GetString(textFile.bytes).ToCharArray();
         data = filterData(data);
+
+        return data;
+    }
+
+    private void updateTileSet() {
+        tileSet = MapConstants.GetTileSet(tileType);
+        primary = tileSet['.'];
+        secondary = tileSet[','];
+    }
+
+    private string[] convertMapDataToSpriteNames(char[] data) {
+        updateTileSet();
+
+        string[] result = new string[MapConstants.WIDTH * MapConstants.HEIGHT];
 
         for (int y = 0; y < MapConstants.HEIGHT; y++) {
             for (int x = 0; x < MapConstants.WIDTH; x++) {
@@ -56,7 +112,7 @@ public class MapLoader : MonoBehaviour {
     }
     
     private char[] filterData(char[] data) {
-        char[] dataFiltered = new char[data.Length];
+        char[] dataFiltered = new char[MapConstants.WIDTH * MapConstants.HEIGHT];
 
         int insertPos = 0;
         for (int i = 0; i < data.Length; i++) {
@@ -71,7 +127,7 @@ public class MapLoader : MonoBehaviour {
     private void prettifyTerrainEdges() {
         for (int y = 0; y < MapConstants.HEIGHT; y++) {
             for (int x = 0; x < MapConstants.WIDTH; x++) {
-                string tile = mapTileNames[calcMapIndex(x, y)];
+                string tile = mapTiles[calcMapIndex(x, y)];
                 if (tile.Equals(secondary)) {
                     int positionId = 0;
 
@@ -80,7 +136,7 @@ public class MapLoader : MonoBehaviour {
                             if (yy == 0 && xx == 0) continue;
 
                             int idx = calcMapIndex(x + xx, y + yy);
-                            string tileName = (idx < 0 || idx >= mapTileNames.Length) ? secondary : mapTileNames[idx];
+                            string tileName = (idx < 0 || idx >= mapTiles.Length) ? secondary : mapTiles[idx];
                             string[] tileNameParts = tileName.Split('-');
                             if (tileNameParts[0].Equals(primary)) {
                                 int positionIdx = (yy + 1) * 3 + (xx + 1);
@@ -94,23 +150,10 @@ public class MapLoader : MonoBehaviour {
                         positionIdsToNames.TryGetValue(positionId, out extension);
 
                         if (extension != null && !extension.Equals("")) {
-                            mapTileNames[calcMapIndex(x, y)] = secondary + "-" + primary + extension;
+                            mapTiles[calcMapIndex(x, y)] = secondary + "-" + primary + extension;
                         }
                     }
                 }
-            }
-        }
-    }
-
-    private void renderMap() {
-        boardHolder = new GameObject().transform;
-
-        for (int y = 0; y < MapConstants.HEIGHT; y++) {
-            for (int x = 0; x < MapConstants.WIDTH; x++) {
-                GameObject instance = Instantiate(floor, new Vector3(x, MapConstants.HEIGHT - y - 1, 0f), Quaternion.identity) as GameObject;
-                SpriteRenderer renderer = instance.GetComponent<SpriteRenderer>();
-                renderer.sprite = SpriteRepository.GetSpriteByName(mapTileNames[calcMapIndex(x, y)]);
-                instance.transform.SetParent(boardHolder);
             }
         }
     }
