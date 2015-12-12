@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 207ae485049b5a1428648f48cada243b
-timeCreated: 1449908902
+timeCreated: 1449923734
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -92,8 +92,8 @@ TextureImporter:
     21300170: grass-dirt-nw
     21300172: grass-dirt-n
     21300174: grass-dirt-ne
-    21300176: grass-dirt-vertical-top
-    21300178: grass-dirt-poll
+    21300176: grass-dirt-top
+    21300178: grass-dirt-alone
     21300180: Floor_90
     21300182: Floor_91
     21300184: Floor_92
@@ -109,10 +109,10 @@ TextureImporter:
     21300204: grass-dirt-w
     21300206: grass
     21300208: grass-dirt-e
-    21300210: grass-dirt-vertical-middle
-    21300212: grass-dirt-horizontal-left
-    21300214: grass-dirt-horizontal-middle
-    21300216: grass-dirt-horizontal-right
+    21300210: grass-dirt-vertical
+    21300212: grass-dirt-left
+    21300214: grass-dirt-horizontal
+    21300216: grass-dirt-right
     21300218: Floor_109
     21300220: Floor_110
     21300222: Floor_111
@@ -127,7 +127,7 @@ TextureImporter:
     21300240: grass-dirt-sw
     21300242: grass-dirt-s
     21300244: grass-dirt-se
-    21300246: grass-dirt-vertical-bottom
+    21300246: grass-dirt-bottom
     21300248: Floor_124
     21300250: Floor_125
     21300252: Floor_126
@@ -1410,7 +1410,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-vertical-top
+    - name: grass-dirt-top
       rect:
         serializedVersion: 2
         x: 160
@@ -1420,7 +1420,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-poll
+    - name: grass-dirt-alone
       rect:
         serializedVersion: 2
         x: 192
@@ -1580,7 +1580,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-vertical-middle
+    - name: grass-dirt-vertical
       rect:
         serializedVersion: 2
         x: 160
@@ -1590,7 +1590,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-horizontal-left
+    - name: grass-dirt-left
       rect:
         serializedVersion: 2
         x: 176
@@ -1600,7 +1600,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-horizontal-middle
+    - name: grass-dirt-horizontal
       rect:
         serializedVersion: 2
         x: 192
@@ -1610,7 +1610,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-horizontal-right
+    - name: grass-dirt-right
       rect:
         serializedVersion: 2
         x: 208
@@ -1760,7 +1760,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: grass-dirt-vertical-bottom
+    - name: grass-dirt-bottom
       rect:
         serializedVersion: 2
         x: 160

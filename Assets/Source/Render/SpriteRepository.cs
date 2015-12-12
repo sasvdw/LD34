@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 public class SpriteRepository {
 
     private static Dictionary<string, Sprite> sprites;
 
     public static Sprite GetSpriteByName(string name) {
-        return sprites[name];
+        Debug.Log("Loading sprite: '" + name + "'.");
+        Sprite result;
+        sprites.TryGetValue(name, out result);
+
+        if (result == null) {
+            sprites.TryGetValue(name.Split('-')[0], out result);
+        }
+
+        return result;
     }
 
     static SpriteRepository() {
