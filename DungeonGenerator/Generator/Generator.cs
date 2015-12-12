@@ -102,12 +102,13 @@ namespace Generator
                 int yMod = 0;
 
                 KeyValuePair<Direction, Tile> validTile = new KeyValuePair<Direction, Tile>();
-                for(int testing = 0; testing < 10000; testing++)
+                for(int testing = 0; testing < 1000; testing++)
                 {
                     newX = this.random.Next(1, this.MaxX);
                     newY = this.random.Next(1, this.MaxY);
 
                     var tile = this.dungeon.GetTile(newX, newY);
+
 
                     if(!(tile is WallTile) && !(tile is CorridorTile))
                     {
@@ -116,7 +117,7 @@ namespace Generator
 
                     var surroundings = tile.Surroundings;
 
-                    if(!surroundings.Any(x => !(x.Value is CorridorTile) && !(x.Value is FloorTile)))
+                    if(surroundings.All(x => !(x.Value is WallTile) && !(x.Value is CorridorTile)))
                     {
                         continue;
                     }

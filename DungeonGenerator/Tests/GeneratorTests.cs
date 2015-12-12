@@ -27,7 +27,7 @@ namespace Tests
             this.width = 40;
             this.height = 30;
             this.objects = 10;
-            this.roomchance = 75;
+            this.roomchance = 100;
         }
 
         [Test]

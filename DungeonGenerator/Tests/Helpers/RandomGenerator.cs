@@ -10,7 +10,7 @@ namespace Tests.Helpers
         public int Seed { get; private set; }
 
         public RandomGenerator()
-            : this(DateTime.Now.Millisecond) {}
+            : this(new Random().Next(int.MinValue, int.MaxValue)) {}
 
         public RandomGenerator(int seed)
         {
