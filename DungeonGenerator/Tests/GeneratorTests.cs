@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using DungeonGenerator.Dungeons.Entities;
-using DungeonGenerator.Generator;
-using DungeonGenerator.Generator.Interfaces;
+using System.Linq;
+using Dungeons.Entities.Players;
+using Generator.Interfaces;
 using NUnit.Framework;
 using Tests.Helpers;
 
@@ -25,28 +25,29 @@ namespace Tests
         public void GenerateMap()
         {
             Action<string> logger = (msg) => Debug.WriteLine(msg);
-            var dungeon = new Generator(40, 30, logger, this.random)
+            var dungeon = new Generator.Generator(40, 30, 10, logger, this.random)
+                .CreateDungeon()
                 .PlacePlayer(this.player)
                 .ConstructedDungeon;
 
-            var map = dungeon.Map;
+            var map = dungeon.Map.Select(x => (char)x).ToArray();
 
             foreach(var monster in dungeon.MonsterDictionary)
             {
-                map[monster.Key] = monster.Value;
+                map[monster.Key] = (char)monster.Value;
             }
 
             foreach(var item in dungeon.ItemDictionary)
             {
-                map[item.Key] = item.Value;
+                map[item.Key] = (char)item.Value;
             }
 
             foreach(var dungeonObject in dungeon.DungeonObjectDictionary)
             {
-                map[dungeonObject.Key] = dungeonObject.Value;
+                map[dungeonObject.Key] = (char)dungeonObject.Value;
             }
 
-            map[dungeon.PlayerValuePair.Key] = dungeon.PlayerValuePair.Value;
+            map[dungeon.PlayerValuePair.Key] = (char)dungeon.PlayerValuePair.Value;
 
             for(var i = 0; i < map.Length; i++)
             {

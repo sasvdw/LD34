@@ -1,5 +1,5 @@
 ﻿using System;
-using DungeonGenerator.Generator.Interfaces;
+using Generator.Interfaces;
 
 namespace Tests.Helpers
 {
