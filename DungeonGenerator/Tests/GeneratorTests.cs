@@ -13,19 +13,28 @@ namespace Tests
     {
         private IRandom random;
         private Player player;
+        private int width;
+        private int height;
+        private int objects;
+        private int roomchance;
 
         [SetUp]
         public void SetUp()
         {
             this.random = new RandomGenerator();
             this.player = new Player();
+
+            this.width = 40;
+            this.height = 30;
+            this.objects = 10;
+            this.roomchance = 75;
         }
 
         [Test]
         public void GenerateMap()
         {
             Action<string> logger = (msg) => Debug.WriteLine(msg);
-            var dungeon = new Generator.Generator(40, 30, 10, logger, this.random)
+            var dungeon = new Generator.Generator(this.width, this.height, this.objects, this.roomchance, logger, this.random)
                 .CreateDungeon()
                 .PlacePlayer(this.player)
                 .ConstructedDungeon;

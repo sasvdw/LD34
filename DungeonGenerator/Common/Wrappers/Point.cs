@@ -1,4 +1,4 @@
-namespace Generator.Tiles
+namespace Common.Wrappers
 {
     public class Point {
         protected System.Drawing.Point point;

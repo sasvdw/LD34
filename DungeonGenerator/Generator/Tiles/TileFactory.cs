@@ -1,4 +1,5 @@
 ﻿using System;
+using Dungeons;
 using Dungeons.Terrain;
 using Dungeons.Terrain.Enums;
 
@@ -6,7 +7,7 @@ namespace Generator.Tiles
 {
     public static class TileFactory
     {
-        public static Tile MakeTile(Dungeons.Dungeon dungeon, TerrainType type, int x, int y)
+        public static Tile MakeTile(Dungeon dungeon, TerrainType type, int x, int y)
         {
             switch(type)
             {
@@ -21,9 +22,14 @@ namespace Generator.Tiles
             }
         }
 
-        public static Tile MakeTile(Dungeons.Dungeon dungeon, TerrainType type, DungeonPoint point)
+        public static Tile MakeTile(Dungeon dungeon, TerrainType type, DungeonPoint point)
         {
             return MakeTile(dungeon, type, point.X, point.Y);
+        }
+
+        public static Tile MakeDoorTile(Dungeon dungeon, int x, int y)
+        {
+            return new DoorTile(dungeon, x, y);
         }
     }
 }

@@ -7,13 +7,16 @@ namespace Tests.Helpers
     {
         private readonly Random random;
 
+        public int Seed { get; private set; }
+
         public RandomGenerator()
+            : this(DateTime.Now.Millisecond) {}
+
+        public RandomGenerator(int seed)
         {
-            this.Seed = DateTime.Now.Millisecond;
+            this.Seed = seed;
             this.random = new Random(this.Seed);
         }
-
-        public int Seed { get; private set; }
 
         public int Next(int maxValue)
         {

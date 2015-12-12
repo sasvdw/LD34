@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dungeons.Entities.DungeonObjects;
+using Dungeons.Entities.Enums;
 using Dungeons.Entities.Interfaces;
 using Dungeons.Entities.Items;
 using Dungeons.Entities.Monsters;
@@ -21,31 +22,7 @@ namespace Dungeons.Terrain
         {
             get
             {
-                return this.gameEntities.Any(x => x.IsPassable);
-            }
-        }
-
-        public bool HasDungeonObject
-        {
-            get
-            {
-                return this.gameEntities.Any(x => x is DungeonObject);
-            }
-        }
-
-        public bool HasMonster
-        {
-            get
-            {
-                return this.gameEntities.Any(x => x is Monster);
-            }
-        }
-
-        public bool HasItem
-        {
-            get
-            {
-                return this.gameEntities.Any(x => x is Item);
+                return this.gameEntities.All(x => x.IsPassable);
             }
         }
 
@@ -54,6 +31,52 @@ namespace Dungeons.Terrain
             get
             {
                 return this.dungeon;
+            }
+        }
+
+        public Tile NorthTile
+        {
+            get
+            {
+                return this.dungeon.GetTile(this.X, this.Y - 1);
+            }
+        }
+
+        public Tile SouthTile
+        {
+            get
+            {
+                return this.dungeon.GetTile(this.X, this.Y + 1);
+            }
+        }
+
+        public Tile EastTile
+        {
+            get
+            {
+                return this.dungeon.GetTile(this.X + 1, this.Y);
+            }
+        }
+
+        public Tile WestTile
+        {
+            get
+            {
+                return this.dungeon.GetTile(this.X - 1, this.Y);
+            }
+        }
+
+        public Dictionary<Direction, Tile> Surroundings
+        {
+            get
+            {
+                return new Dictionary<Direction, Tile>()
+                       {
+                            {Direction.North, this.NorthTile },
+                            {Direction.South, this.SouthTile },
+                            {Direction.East, this.EastTile },
+                            {Direction.West, this.WestTile },
+                       };
             }
         }
 

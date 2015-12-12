@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Wrappers;
 using Dungeons.Entities.Enums;
 
 namespace Generator.Tiles
@@ -24,8 +25,9 @@ namespace Generator.Tiles
                     case Direction.South:
                         return this.startX - width / 2;
                     case Direction.East:
-                    case Direction.West:
                         return this.startX;
+                    case Direction.West:
+                        return this.startX - this.width;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -44,7 +46,7 @@ namespace Generator.Tiles
                     case Direction.East:
                         return this.startX + this.width;
                     case Direction.West:
-                        return this.startX - this.width;
+                        return this.startX;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -58,6 +60,7 @@ namespace Generator.Tiles
                 switch(this.direction)
                 {
                     case Direction.North:
+                        return this.startY - this.height;
                     case Direction.South:
                         return this.startY;
                     case Direction.East:
@@ -76,7 +79,7 @@ namespace Generator.Tiles
                 switch(this.direction)
                 {
                     case Direction.North:
-                        return this.startY - this.height;
+                        return this.startY;
                     case Direction.South:
                         return this.startY + this.height;
                     case Direction.East:

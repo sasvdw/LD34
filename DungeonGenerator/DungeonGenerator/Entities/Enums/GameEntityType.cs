@@ -3,6 +3,7 @@
     public enum GameEntityType
     {
         Player = '@',
-        Wall = '#'
+        Wall = '#',
+        Door = '+'
     }
 }

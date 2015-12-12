@@ -97,6 +97,11 @@ namespace Dungeons
         {
             var pos = this.GetTilePosition(x, y);
 
+            if(pos < 0 || pos >= this.tiles.Length)
+            {
+                return null;
+            }
+
             return this.tiles[pos];
         }
 

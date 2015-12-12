@@ -1,4 +1,5 @@
-﻿using Dungeons;
+﻿using Common.Wrappers;
+using Dungeons;
 using Dungeons.Terrain.Enums;
 
 namespace Generator.Tiles

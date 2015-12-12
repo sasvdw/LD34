@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dungeons;
 using Dungeons.Entities.Enums;
@@ -7,6 +8,7 @@ using Dungeons.Terrain;
 using Dungeons.Terrain.Enums;
 using Generator.Interfaces;
 using Generator.Tiles;
+using WallTile = Generator.Tiles.WallTile;
 
 namespace Generator
 {
@@ -18,6 +20,7 @@ namespace Generator
         private readonly int width;
         private readonly int height;
         private readonly int objects;
+        private readonly int roomChance;
 
         private readonly Action<string> logger;
 
@@ -68,12 +71,14 @@ namespace Generator
             this.logger(string.Format("Seed: {0}", this.random.Seed));
         }
 
-        public Generator(int width, int height, int objects, Action<string> logger, IRandom random)
+        public Generator(int width, int height, int objects, int roomChance, Action<string> logger, IRandom random)
             : this(logger, random)
         {
             this.width = width;
             this.height = height;
             this.objects = objects;
+            this.roomChance = roomChance;
+
             this.dungeon = new Dungeon(width, height);
         }
 
@@ -95,7 +100,86 @@ namespace Generator
                 int xMod = 0;
                 int newY = 0;
                 int yMod = 0;
-                Direction? validTile = null;
+
+                KeyValuePair<Direction, Tile> validTile = new KeyValuePair<Direction, Tile>();
+                for(int testing = 0; testing < 10000; testing++)
+                {
+                    newX = this.random.Next(1, this.MaxX);
+                    newY = this.random.Next(1, this.MaxY);
+
+                    var tile = this.dungeon.GetTile(newX, newY);
+
+                    if(!(tile is WallTile) && !(tile is CorridorTile))
+                    {
+                        continue;
+                    }
+
+                    var surroundings = tile.Surroundings;
+
+                    if(!surroundings.Any(x => !(x.Value is CorridorTile) && !(x.Value is FloorTile)))
+                    {
+                        continue;
+                    }
+
+                    validTile = surroundings.First(x => x.Value is CorridorTile || x.Value is FloorTile);
+
+                    switch(validTile.Key)
+                    {
+                        case Direction.North:
+                            xMod = 0;
+                            yMod = -1;
+                            break;
+                        case Direction.South:
+                            xMod = 0;
+                            yMod = 1;
+                            break;
+                        case Direction.East:
+                            xMod = 1;
+                            yMod = 0;
+                            break;
+                        case Direction.West:
+                            xMod = -1;
+                            yMod = 0;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    var otherSurroundings = surroundings.Where(x => x.Key != validTile.Key);
+
+                    if(otherSurroundings.Any(x => x.Value is DoorTile))
+                    {
+                        validTile = new KeyValuePair<Direction, Tile>(validTile.Key, null);
+                    }
+
+                    if(validTile.Value != null)
+                    {
+                        break;
+                    }
+                }
+
+                if(validTile.Value == null)
+                {
+                    continue;
+                }
+
+                int feature = this.random.Next(0, 100);
+
+                if(feature <= this.roomChance)
+                {
+                    if(this.MakeRoom(newX + xMod, newY + yMod, 8, 6, validTile.Key))
+                    {
+                        currentFeatures++;
+
+                        TileFactory.MakeDoorTile(this.dungeon, newX, newY);
+
+                        TileFactory.MakeTile(this.dungeon, TerrainType.Floor, newX + xMod, newY + yMod);
+                    }
+                }
+                else if(feature >= roomChance)
+                {
+                    
+                }
             }
 
             return this;
@@ -135,18 +219,14 @@ namespace Generator
             int xLen = this.random.Next(5, width);
             int yLen = this.random.Next(5, height);
 
-            var points =
-                new RoomPointsGenerator(x, y, xLen, yLen)
-                    .GeneratePoints(direction)
-                    .PointsGenerated;
+            var points = new RoomPointsGenerator(x, y, xLen, yLen).GeneratePoints(direction).PointsGenerated;
 
             if(points.Any(s => s.IsPointValid(this.dungeon)))
             {
                 return false;
             }
 
-            this.logger(string.Format("Making room:\nx={0}\nint y={1}\nint width={2}\nint height={3}\nDirection direction={4}\n",
-                x, y, width, height, direction));
+            this.logger(string.Format("Making room:\nx={0}\nint y={1}\nint width={2}\nint height={3}\nDirection direction={4}\n", x, y, width, height, direction));
 
             foreach(var point in points.Where(s => !s.IsWall))
             {
