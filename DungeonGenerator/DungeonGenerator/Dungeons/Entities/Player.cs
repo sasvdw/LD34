@@ -1,10 +1,11 @@
 ﻿using DungeonGenerator.Dungeons.Entities.Enums;
 using DungeonGenerator.Dungeons.Entities.GameComponents;
+using DungeonGenerator.Dungeons.Entities.Interfaces;
 using DungeonGenerator.Dungeons.Terrain;
 
 namespace DungeonGenerator.Dungeons.Entities
 {
-    public class Player : GameEntity
+    public class Player : GameEntity, IMovableGameEntity
     {
         public override bool IsPassable
         {
@@ -32,6 +33,11 @@ namespace DungeonGenerator.Dungeons.Entities
             this.MoveToNewDungeon(tile.Dungeon);
 
             base.SetCurrentTile(tile);
+        }
+
+        public void Move(Direction direction)
+        {
+            this.GetComponent<MoveComponent>().Move(direction);
         }
 
         private void MoveToNewDungeon(Dungeon dungeon)

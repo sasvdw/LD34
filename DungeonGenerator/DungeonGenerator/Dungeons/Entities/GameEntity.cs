@@ -6,7 +6,7 @@ using DungeonGenerator.Dungeons.Terrain;
 
 namespace DungeonGenerator.Dungeons.Entities
 {
-    public abstract class GameEntity : IPassable
+    public abstract class GameEntity : IGameEntity
     {
         protected readonly IList<GameComponent> components;
         protected Tile currentTile;
@@ -46,7 +46,7 @@ namespace DungeonGenerator.Dungeons.Entities
             this.currentTile = tile;
         }
 
-        public GameEntity AddComponent(GameComponent gameComponent)
+        public IGameEntity AddComponent(GameComponent gameComponent)
         {
             this.components.Add(gameComponent);
 

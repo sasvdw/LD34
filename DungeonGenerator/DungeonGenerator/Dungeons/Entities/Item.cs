@@ -1,6 +1,5 @@
 ﻿using DungeonGenerator.Dungeons.Entities.Enums;
 using DungeonGenerator.Dungeons.Entities.GameComponents;
-using DungeonGenerator.Dungeons.Terrain;
 
 namespace DungeonGenerator.Dungeons.Entities
 {

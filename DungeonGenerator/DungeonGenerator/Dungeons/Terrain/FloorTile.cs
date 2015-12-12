@@ -4,11 +4,11 @@ namespace DungeonGenerator.Dungeons.Terrain
 {
     public class FloorTile : Tile
     {
-        public override char Type
+        public override TerrainType Type
         {
             get
             {
-                return (char)TerrainType.Floor;
+                return TerrainType.Floor;
             }
         }
 

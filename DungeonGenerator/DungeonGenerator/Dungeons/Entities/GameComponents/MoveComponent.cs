@@ -1,11 +1,12 @@
-﻿
+﻿using System;
 using DungeonGenerator.Dungeons.Entities.Enums;
+using DungeonGenerator.Dungeons.Entities.Interfaces;
 
 namespace DungeonGenerator.Dungeons.Entities.GameComponents
 {
     public class MoveComponent : GameComponent
     {
-        public MoveComponent(GameEntity parentGameEntity) 
+        public MoveComponent(IMovableGameEntity parentGameEntity) 
             : base(parentGameEntity)
         { }
 
@@ -21,6 +22,8 @@ namespace DungeonGenerator.Dungeons.Entities.GameComponents
                     return;
                 case Direction.West :
                     return;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

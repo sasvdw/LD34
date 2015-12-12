@@ -2,6 +2,7 @@
 {
     public enum TerrainType
     {
+        Unused,
         Floor = '.',
         Wall = '#',
         StairsUp = '<',

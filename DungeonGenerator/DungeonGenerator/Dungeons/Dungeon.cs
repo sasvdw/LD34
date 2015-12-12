@@ -35,7 +35,7 @@ namespace DungeonGenerator.Dungeons
         {
             get
             {
-                return this.tiles.Select(x => x.Type).ToArray();
+                return this.tiles.Select(x => (char)x.Type).ToArray();
             }
         }
 

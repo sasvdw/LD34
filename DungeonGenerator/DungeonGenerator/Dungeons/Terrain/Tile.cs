@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DungeonGenerator.Dungeons.Entities;
+using DungeonGenerator.Dungeons.Entities.Interfaces;
+using DungeonGenerator.Dungeons.Terrain.Enums;
 
 namespace DungeonGenerator.Dungeons.Terrain
 {
     public abstract class Tile
     {
         private readonly Dungeon dungeon;
-        private readonly IList<GameEntity> gameEntities;
+        private readonly IList<IGameEntity> gameEntities;
         public int X { get; private set; }
         public int Y { get; private set; }
 
-        public abstract char Type { get; }
+        public abstract TerrainType Type { get; }
 
         public bool IsPassable
         {
@@ -63,7 +65,7 @@ namespace DungeonGenerator.Dungeons.Terrain
 
         private Tile()
         {
-            this.gameEntities = new List<GameEntity>();
+            this.gameEntities = new List<IGameEntity>();
         }
 
         protected Tile(Dungeon dungeon, int x, int y)
@@ -75,14 +77,14 @@ namespace DungeonGenerator.Dungeons.Terrain
             this.dungeon.SetTile(this, x, y);
         }
 
-        public void AddGameEntity(GameEntity gameEntity)
+        public void AddGameEntity(IGameEntity gameEntity)
         {
             this.gameEntities.Add(gameEntity);
 
             gameEntity.SetCurrentTile(this);
         }
 
-        public void RemoveGameEntity(GameEntity gameEntity)
+        public void RemoveGameEntity(IGameEntity gameEntity)
         {
             if(!this.gameEntities.Contains(gameEntity))
             {
