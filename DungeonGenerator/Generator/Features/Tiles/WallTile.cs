@@ -2,7 +2,7 @@
 using Dungeons.Entities.DungeonObjects;
 using Dungeons.Terrain;
 
-namespace Generator.Tiles
+namespace Generator.Features.Tiles
 {
     public class WallTile : FloorTile
     {

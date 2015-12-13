@@ -1,9 +1,10 @@
 ﻿using System;
+using Common.Wrappers;
 using Dungeons;
 using Dungeons.Terrain;
 using Dungeons.Terrain.Enums;
 
-namespace Generator.Tiles
+namespace Generator.Features.Tiles
 {
     public static class TileFactory
     {
@@ -22,7 +23,7 @@ namespace Generator.Tiles
             }
         }
 
-        public static Tile MakeTile(Dungeon dungeon, TerrainType type, DungeonPoint point)
+        public static Tile MakeTile(Dungeon dungeon, TerrainType type, Point point)
         {
             return MakeTile(dungeon, type, point.X, point.Y);
         }
@@ -30,6 +31,11 @@ namespace Generator.Tiles
         public static Tile MakeDoorTile(Dungeon dungeon, int x, int y)
         {
             return new DoorTile(dungeon, x, y);
+        }
+
+        public static Tile MakeDoorTile(Dungeon dungeon, Point point)
+        {
+            return MakeDoorTile(dungeon, point.X, point.Y);
         }
     }
 }

@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Common.Wrappers;
 using Dungeons.Entities.Enums;
+using Generator.Features.Interfaces;
 
-namespace Generator.Tiles
+namespace Generator.Features.Rooms
 {
-    public class RoomPointsGenerator
+    public class RoomPointsGenerator : FeaturePointsGenerator
     {
         private readonly int startX;
         private readonly int startY;
         private readonly int width;
         private readonly int height;
-        private readonly IList<DungeonPoint> dungeonPoints;
-        private Direction direction;
 
         private int WidthLowerBound
         {
@@ -23,7 +20,7 @@ namespace Generator.Tiles
                 {
                     case Direction.North:
                     case Direction.South:
-                        return this.startX - width / 2;
+                        return this.startX - this.width / 2;
                     case Direction.East:
                         return this.startX;
                     case Direction.West:
@@ -65,7 +62,7 @@ namespace Generator.Tiles
                         return this.startY;
                     case Direction.East:
                     case Direction.West:
-                        return this.startY - height / 2;
+                        return this.startY - this.height / 2;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -123,20 +120,7 @@ namespace Generator.Tiles
             }
         }
 
-        public IEnumerable<DungeonPoint> PointsGenerated
-        {
-            get
-            {
-                return this.dungeonPoints;
-            }
-        }
-
-        private RoomPointsGenerator()
-        {
-            this.dungeonPoints = new List<DungeonPoint>();
-        }
-
-        public RoomPointsGenerator(int startX, int startY, int width, int height) : this()
+        public RoomPointsGenerator(int startX, int startY, int width, int height)
         {
             this.startX = startX;
             this.startY = startY;
@@ -144,15 +128,13 @@ namespace Generator.Tiles
             this.height = height;
         }
 
-        public RoomPointsGenerator GeneratePoints(Direction direction)
+        public override bool IsWall(Point point)
         {
-            if(this.direction == direction && this.dungeonPoints.Any())
-            {
-                return this;
-            }
+            return this.IsWall(point.X, point.Y);
+        }
 
-            this.dungeonPoints.Clear();
-            this.direction = direction;
+        protected override FeaturePointsGenerator GeneratePoints()
+        {
             for(int x = this.WidthLowerBound; x < this.WidthUpperBound; x++)
             {
                 for(int y = this.WallHeightLowerBound; y < this.HeightUpperBound; y++)
@@ -164,12 +146,7 @@ namespace Generator.Tiles
             return this;
         }
 
-        public bool IsWall(Point dungeonPoint)
-        {
-            return this.IsWall(dungeonPoint.X, dungeonPoint.Y);
-        }
-
-        public bool IsWall(int x, int y)
+        private bool IsWall(int x, int y)
         {
             return x == this.WallWidthLowerBound || x == this.WallWidthUpperBound || y == this.WallHeightLowerBound || y == this.WallHeightUpperBound;
         }

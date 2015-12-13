@@ -1,25 +1,26 @@
 ﻿using Common.Wrappers;
 using Dungeons;
 using Dungeons.Terrain.Enums;
+using Generator.Features.Interfaces;
 
-namespace Generator.Tiles
+namespace Generator.Features
 {
     public class DungeonPoint : Point
     {
-        private readonly RoomPointsGenerator roomPointsGenerator;
+        private readonly FeaturePointsGenerator featurePointsGenerator;
 
         public bool IsWall
         {
             get
             {
-                return this.roomPointsGenerator.IsWall(this);
+                return this.featurePointsGenerator.IsWall(this);
             }
         }
 
-        public DungeonPoint(RoomPointsGenerator roomPointsGenerator, int x, int y)
+        public DungeonPoint(FeaturePointsGenerator featurePointsGenerator, int x, int y)
             : base(x, y)
         {
-            this.roomPointsGenerator = roomPointsGenerator;
+            this.featurePointsGenerator = featurePointsGenerator;
         }
 
         public bool IsPointValid(Dungeon dungeon)
@@ -28,7 +29,7 @@ namespace Generator.Tiles
                    dungeon.GetTile(this.point).Type == TerrainType.Unused;
         }
 
-        private bool IsPointOutsideDungeon(Dungeons.Dungeon dungeon)
+        private bool IsPointOutsideDungeon(Dungeon dungeon)
         {
             return this.point.X < 0 || this.point.X >= dungeon.Width
                    || this.point.Y < 0 || this.point.Y >= dungeon.Height;

@@ -70,13 +70,20 @@ namespace Dungeons.Terrain
         {
             get
             {
-                return new Dictionary<Direction, Tile>()
+                var surroundings = new Dictionary<Direction, Tile>()
                        {
                             {Direction.North, this.NorthTile },
                             {Direction.South, this.SouthTile },
                             {Direction.East, this.EastTile },
                             {Direction.West, this.WestTile },
                        };
+
+                foreach(var surrounding in surroundings.Where(surrounding => surrounding.Value == null))
+                {
+                    surroundings.Remove(surrounding.Key);
+                }
+
+                return surroundings;
             }
         }
 

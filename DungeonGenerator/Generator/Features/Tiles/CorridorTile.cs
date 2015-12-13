@@ -1,7 +1,7 @@
 ﻿using Dungeons;
 using Dungeons.Terrain;
 
-namespace Generator.Tiles
+namespace Generator.Features.Tiles
 {
     class CorridorTile : FloorTile
     {
