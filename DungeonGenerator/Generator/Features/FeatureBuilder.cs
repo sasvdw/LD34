@@ -33,15 +33,14 @@ namespace Generator.Features
 
             var points = new RoomPointsGenerator(x, y, xLen, yLen).GeneratePoints(direction).PointsGenerated.ToList();
 
-            if(points.Any(s => s.IsPointValid(dungeon)))
+            if(!points.Any(s => s.IsPointValid(dungeon)))
             {
                 return false;
             }
-
             this.logger(string.Format("Making room:\nx={0}\nint y={1}\nint width={2}\nint height={3}\nDirection direction={4}\n", x, y, width, height,
                 direction));
 
-            foreach(var point in points.Where(s => !s.IsWall))
+            foreach (var point in points.Where(s => !s.IsWall))
             {
                 TileFactory.MakeTile(dungeon, TerrainType.Floor, point);
             }
